@@ -1,0 +1,19 @@
+p {
+    background-color : lime;
+}
+
+.button:hover{
+    background-color : #0cc;
+    border-style : solid;
+    border-width : 2px;
+}
+
+.button:active{
+    background-color : #d40;
+    border-style : solid;
+    border-width : 2px;
+}
+
+.button #but1{
+    background-color : #880;
+}
