@@ -1,0 +1,11 @@
+form(method="POST", action="/user")
+    input(type="hidden", name="_method", value="PUT")
+    p Name
+        input(type="text" name="name")
+    p Email
+        input(type="email", name="email")
+    p Age
+        input(type="number", name="age")
+    p
+        input(type="submit")
+

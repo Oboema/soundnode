@@ -14,6 +14,14 @@ p {
     border-width : 2px;
 }
 
-.button #but1{
-    background-color : #880;
+#but1.button{
+    background-color : skyblue;
+}
+
+.button.clicked{
+    background-color : purple;
+    border-style : dashed;
+    border-width : 2px;
+    border-color : gold;
+    color        : lightgrey;
 }

@@ -1,0 +1,8 @@
+form(method="POST" action="/soundupload" enctype="multipart/form-data")
+    input(type="hidden" name="_method", value="PUT")
+    p Title
+        input(type="text" name="title")
+    p File
+        input(type="file" name="soundclip")
+    p
+        input(type="submit" value="upload")

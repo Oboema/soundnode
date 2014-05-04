@@ -4,8 +4,10 @@
     "version":      "0.0.1",
     "private":      true,
     "dependencies": {
-        "express":  "3.x",
-        "socket.io":"0.6.x",
-        "jade"   :  "1.3.x"
+        "express"   : "3.x",
+        "socket.io" : "0.9.x",
+        "jade"      : "1.3.x",
+        "multiparty": "3.2.x",
+        "busboy"    : "0.2.x"
     }
 }

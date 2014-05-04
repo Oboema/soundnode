@@ -36,6 +36,7 @@
         <!-- JS here to prevent 'flash' of all the default audio players -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
         <script type="text/javascript" charset="utf-8">
+            // $(function()) == $( document ).ready(fuction())
             $(function() {
                 $("audio").removeAttr("controls").each(function(i, audioElement) {
                     var audio = $(this);
