@@ -17,54 +17,19 @@ app.set('view options', {layout: false});
 app.use(express.json());
 app.use(express.urlencoded());
 
-// POST form handler
-// https://stackoverflow.com/questions/20735429/form-upload-in-node-js-express-via-multiparty
-/*
-var multiparty          = require('multiparty');
-function formHandler(req, res){
-    var form        = new multiparty.Form();
-    var soundfile   = '';
-    var title       = '';
-    
-    // breaks stuff form.on('error', next);
-
-    form.on('close', function(){
-        res.send( 'wubba'); //'\nuploaded '+soundfile.filename+' ('+soundfile.size/1024|0+' KiB) as '+title)
-    });
-    
-    // I guess this listens to all form fields and filters out the
-    // title field to set it as destination filename. why like this?
-    form.on('field', function(name, val){
-        if(name !== 'title') return;
-        title   = val;
-    });
-
-    form.on('part', function(part){
-        if(!part.filename) return;
-        if (part.name !== 'soundclip') return part.resume(); // what's this?
-        soundfile   = {};
-        soundfile.filename  = part.filename;
-        soundfile.size      = 0;
-
-        part.on('data', function(buf){
-            soundfile.size += buf.length;
-        });
-    });
-
-    form.parse(req);
-};
-*/
-
-
 
 function formHandler(req, res){
 
     var busboy  = new Busboy( {headers: req.headers}); 
-    var title   
+    var title;
 
     busboy.on('file', function(fieldname, file, filename, encoding, mimetype){
         //saving the file
-        if (!title) title   = path.basename(filename);
+        if (!title) {
+            console.log('title not found! ['+title+']');
+            title   = path.basename(filename);
+
+        }
         title               = path.join(os.tmpDir(), title);
 
         file.pipe(fs.createWriteStream(title));
@@ -82,13 +47,17 @@ function formHandler(req, res){
 
     busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated){
         console.log('Field ['+fieldname+']: value: '+inspect(val));
-        if (fieldname == 'title') title = valTruncated;
+        if (fieldname == 'title'){
+            console.log('setting title = '+val);
+            title = val;
+        }
     });
 
     busboy.on('finish', function(){
         console.log('Done parsing form!');
-        res.writeHead(303, {Connection: 'close', Location : '/'});
-        res.end();
+        res.send('done uploading sent from server');
+        //res.writeHead(303, {Connection: 'close', Location : '/'});
+        //res.end();
     });
 
     req.pipe(busboy);

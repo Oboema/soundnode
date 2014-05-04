@@ -1,8 +1,23 @@
-form(method="POST" action="/soundupload" enctype="multipart/form-data")
-    input(type="hidden" name="_method", value="PUT")
-    p Title
-        input(type="text" name="title")
-    p File
-        input(type="file" name="soundclip")
-    p
-        input(type="submit" value="upload")
+doctype html
+html(lang="en")
+    head
+        title Userboard
+        link(rel="stylesheet", type="text/css", href="userboard.css")
+        //script(type="text/javascript", src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js")
+        script(type="text/javascript", src="/jquery.min.js")
+        script(type="text/javascript", src="/socket_io.js")
+        script(type="text/javascript", src="/userboard.js")
+    body
+
+        
+        h1 Upload your sound
+        form(method="POST" action="/soundupload" enctype="multipart/form-data" id="uploadform")
+            input(type="hidden" name="_method", value="PUT")
+            p Title
+                input(type="text" name="title")
+            p File
+                input(type="file" name="soundclip")
+            p
+                input(type="submit" value="upload")
+
+
