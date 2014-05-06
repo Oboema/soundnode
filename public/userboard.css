@@ -1,3 +1,18 @@
+body {
+    background  : #FFF8DC;
+}
+
 h1 {
-    color   : darkred;
+    color       : darkred;
+}
+
+#user-select{
+    font-size   : large;
+    color       : #33d; 
+    font-style  : italic;
+    font-weight : bold;
+}
+
+#username {
+    display     : none;
 }

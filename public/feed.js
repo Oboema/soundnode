@@ -1,8 +1,8 @@
 //alert("brah!");
 
 //var server  = "dev:8080";
-var server  = "http://localhost:8080";
-//var server  = "http://mcmuffin.student.utwente.nl:8080";
+//var server  = "http://localhost:8080";
+var server  = "http://mcmuffin.student.utwente.nl:8080";
 
 function msgReceived(msg){
 

@@ -1,10 +1,100 @@
-console.log('loading some js');
+var server  = "http://mcmuffin.student.utwente.nl:8080";
+var user;
 
-$(document).ready(function() {
-    var formEl  = $('#uploadform');
-    console.log('formEl = ['+formEl+']');
-    
-    formEl.submit(function (e) {
+function UserboardInterface(){
+    this.hash    = document.location.hash,
+    this.user    = null;
+    this.usernameInputEl  = $('#input-username');
+
+    this.updateState();
+    // fire our user check function when a username is put in the box
+    var self    = this;
+    this.usernameInputEl.change(function() { self.inputUser()}); //this.usernameInputEl) });
+
+    // shit will break here probably due to 'this' namespace happiness
+    this.formHandler();
+
+
+}
+
+UserboardInterface.prototype.test   = function(){
+    console.log('I\'m a prototyped function!');
+}
+
+// The logic below doesn't deserve the name. Restructure that shit!
+UserboardInterface.prototype.updateState = function(){
+    if( this.user ){        // if we have a user
+        console.log('user: '+this.user);
+        if (this.hash !== '#'+this.user){           // user and hash are not identical
+            if(! this.hash){                             // if hash is empty (expected)
+
+                this.hash   = '#'+this.user;        // update the hash  
+                document.location.hash  = this.hash;    // and the page URL
+
+                this.usernameInputEl.css( 'display',  'none');   //hide/unhide shit
+                $('#username').html(this.user);
+                $('#username').css( 'display', 'block');
+
+            }else{  // hash != user, throw error
+
+                console.log('Got user ['+this.user+'] and non-empty hash ['+this.hash+']. '+
+                            'I don\'t expect this to happen');
+                alert('something broke, kick the developer');
+            }
+        }else{  //user and hash are identical, updateState() was called but nothing to do
+            // I guess I'll see what to put here later when things start breaking
+            console.log('UpdateState() called but everything is fine. '+
+                        'Maybe some divs are hidden/unhidden while they shouldn\'t?');
+        }
+
+
+    }else{      //no user! 
+        if(this.hash){
+            var tmp_user    = this.hash.substring(1);    //get user from hash
+            if( this.validateUser(tmp_user) ){
+                this.user   = tmp_user;
+                // something goes wrong here
+                // Put the hide/unhide stuff in a function, copied it from ~10 lines above
+                this.usernameInputEl.css( 'display',  'none');   //hide/unhide shit
+                $('#username').html(this.user);
+                $('#username').css( 'display', 'block');
+            }
+
+        }
+        this.usernameInputEl.css('display','block');    // Display the input box
+        $('#username').css('display', 'none');          // Hide the Username div
+    }
+}
+
+
+UserboardInterface.prototype.validateUser = function(username){
+    return username.match(/^[a-z][a-z-_]+$/i);
+}
+
+UserboardInterface.prototype.inputUser = function(){
+
+    // defining this in the 'constructor', if it's here I get undefined errors
+    //this.usernameInputEl  = $('#input-username');
+    username    = this.usernameInputEl.val();
+
+    if( this.user ){    //if we already have a user 
+        console.log('We already have user ['+this.user+']. Should not be in inputUser()');
+
+    }else if( this.validateUser(username) ){
+            this.user   = username;
+            this.updateState();
+    }else {
+        alert('[ '+username +' ] is not a valid username.');
+    }
+
+}
+
+UserboardInterface.prototype.formHandler = function(){
+    this.formEl  = $('#uploadform');
+    console.log('formEl = ['+this.formEl+']');
+
+    // Shit might hit the fan here with 'this' being changed from namespace etc. 
+    this.formEl.submit(function (e) {       
         e.preventDefault();
         var data  = new FormData($(this)[0]);
         console.log('form data ['+data+']');
@@ -21,4 +111,11 @@ $(document).ready(function() {
             }
         });
     });
+
+}
+
+$(document).ready(function() {
+    userboard   = new UserboardInterface();
+        
+
 });
