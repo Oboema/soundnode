@@ -14,15 +14,15 @@ html(lang="en")
             input#input-username(type="text", placeholder='Username')
 
         div#upload 
-        h1 Upload your sound
-        form(method="POST" action="/soundupload#" enctype="multipart/form-data" id="uploadform")
-            input(type="hidden" name="_method", value="PUT")
-            p Title
-                input(type="text" name="title")
-            p File
-                input(type="file" name="soundclip")
-            p
-                input(type="submit" value="upload")
+            h1 Upload your sound
+            form(method="POST" action="/soundupload" enctype="multipart/form-data" id="uploadform")
+                input(type="hidden" name="_method", value="PUT")
+                p Title
+                    input(type="text" name="title")
+                p File
+                    input(type="file" name="soundclip")
+                p
+                    input(type="submit" value="upload")
         div#sounds
 
 

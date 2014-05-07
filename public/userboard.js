@@ -17,12 +17,42 @@ function UserboardInterface(){
 
 }
 
-UserboardInterface.prototype.test   = function(){
-    console.log('I\'m a prototyped function!');
+
+// maybe the next two function could be merged as toggleGuiVisibility or smt
+UserboardInterface.prototype.showUserInput  = function(){
+    this.usernameInputEl.css( 'display',  'block');  // show input box 
+    $('#username').css( 'display', 'none'); // hide name div
+    $('#upload').css(   'display', 'none'); // hide upload form
 }
 
-// The logic below doesn't deserve the name. Restructure that shit!
+UserboardInterface.prototype.showUserBoardGui = function(){
+    this.usernameInputEl.css( 'display',  'none');  // hide input box 
+    $('#username').html(this.user);          // update name div
+    $('#username').css( 'display', 'block'); // show name div
+    $('#upload').css(   'display', 'block'); // show upload form
+}
+
 UserboardInterface.prototype.updateState = function(){
+
+    if( this.hash ){
+        console.log('got hash: ['+this.hash+']');
+        var tmp_user    = this.hash.substring(1);    //get user from hash
+        if( this.validateUser(tmp_user) ){
+            this.user   = tmp_user;
+            this.showUserBoardGui();
+        }
+    } else if( this.user ){
+        console.log('got user: ['+this.user+']');
+        this.hash   = '#' + this.user;
+        document.location.hash  = this.hash;    // and the page URL
+        this.showUserBoardGui();
+    } else {
+        this.showUserInput();
+    }
+}
+/*
+// The logic below doesn't deserve the name. Restructure that shit!
+
     if( this.user ){        // if we have a user
         console.log('user: '+this.user);
         if (this.hash !== '#'+this.user){           // user and hash are not identical
@@ -30,10 +60,7 @@ UserboardInterface.prototype.updateState = function(){
 
                 this.hash   = '#'+this.user;        // update the hash  
                 document.location.hash  = this.hash;    // and the page URL
-
-                this.usernameInputEl.css( 'display',  'none');   //hide/unhide shit
-                $('#username').html(this.user);
-                $('#username').css( 'display', 'block');
+                this.hideUserInput();
 
             }else{  // hash != user, throw error
 
@@ -65,6 +92,7 @@ UserboardInterface.prototype.updateState = function(){
         $('#username').css('display', 'none');          // Hide the Username div
     }
 }
+*/
 
 
 UserboardInterface.prototype.validateUser = function(username){
@@ -101,6 +129,7 @@ UserboardInterface.prototype.formHandler = function(){
         $.ajax({
             url         : '/soundupload',
             data        : data,
+            user        : this.user,
             processData : false,
             contentType : false,
             //contentType : 'multipart/form-data', //false,

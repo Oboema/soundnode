@@ -6,6 +6,10 @@ h1 {
     color       : darkred;
 }
 
+#upload{
+    display     : none;
+}
+
 #user-select{
     font-size   : large;
     color       : #33d; 
