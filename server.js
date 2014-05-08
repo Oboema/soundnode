@@ -57,7 +57,8 @@ app.use( require('./lib/soundupload.js'));
 soundboard  = new soundboard(io);
 
 // Start the server
-var port = 8080;
+console.log('config: [%s]', config.port);
+var port = config.port;
 server.listen(port, function(){
     console.log('Listening on port %d', server.address().port);
 });
