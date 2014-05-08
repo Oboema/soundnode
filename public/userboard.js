@@ -1,6 +1,9 @@
 var server  = "http://mcmuffin.student.utwente.nl:8080";
 var user;
 
+config  = new ClientConfig();
+console.log('host from clientconfig = [' + config.host + ']');
+
 function UserboardInterface(){
     this.hash    = document.location.hash,
     this.user    = null;

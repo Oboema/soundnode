@@ -3,13 +3,20 @@ var express     = require('express'),
     socketio    = require('socket.io'),
     jade        = require('jade'),
     Busboy      = require('busboy'),
-    soundboard  = require('./lib/soundboard.js');
+    soundboard  = require('./lib/soundboard.js'),
+    fs          = require('fs');
 
 
 
 var app     = express(), 
     server  = http.createServer(app),
-    io      = socketio.listen(server);
+    io      = socketio.listen(server),
+    config  = JSON.parse(fs.readFileSync('config.json'), 'utf8'),
+    clientConfig    = ''+
+    'function ClientConfig(){'+
+        'this.config = ' + JSON.stringify(config.clientConfig) + '}';
+        
+
 
 
 app.set('view engine', 'jade');
@@ -19,10 +26,19 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 
-//serve the client js en css
+// Serve config.js. Needs to go above the other js serve route, or it won't work
+app.get('/config.js', function(req,res){
+    res.writeHead(200, {
+    'Content-Length'    : clientConfig.length,
+    'Content-Type'      : 'application/javascript' });
+    res.end(clientConfig, 'utf-8');
+});
+
+//serve the client js en css other than config.js
 app.get('/*.(js|css)', function(req,res){
     res.sendfile("./public"+req.url);
 });
+
 
 // route to index page
 app.get('/', function(req, res){
