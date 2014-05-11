@@ -8,6 +8,7 @@ function UserboardInterface(){
     this.hash    = document.location.hash,
     this.user    = null;
     this.usernameInputEl  = $('#input-username');
+    this.config  = JSON.parse(server+'/config/'+user);
 
     this.updateState();
 
@@ -20,7 +21,9 @@ function UserboardInterface(){
 
 }
 
+UserboardInterface.prototype.getUserSounds  = function(){
 
+}
 // maybe the next two function could be merged as toggleGuiVisibility or smt
 UserboardInterface.prototype.showUserInput  = function(){
     this.usernameInputEl.css( 'display',  'block');  // show input box 
