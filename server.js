@@ -35,10 +35,20 @@ app.get('/config.js', function(req,res){
 });
 
 //serve the client js en css other than config.js
-app.get('/*.(js|css)', function(req,res){
+app.get('/*.(js|css)', function(req,res){   
     res.sendfile("./public"+req.url);
 });
 
+// Testing variables
+app.get('/userboard/config/:user', function(req,res){
+    console.log('getting file '+'[userconfig/'+req.params.user+'.json]');
+    res.sendfile('userconfig/'+req.params.user+'.json');
+});
+
+app.get('/userboard/sound/:user/:sound', function(req, res){
+    console.log('Serving Sound [usersounds/'+req.params.user+'/'+req.params.sound+']');
+    res.sendfile('usersounds/'+req.params.user+'/'+req.params.sound);
+});
 
 // route to index page
 app.get('/', function(req, res){

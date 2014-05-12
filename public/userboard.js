@@ -1,24 +1,63 @@
-var server  = "http://mcmuffin.student.utwente.nl:8080";
-var user;
-
-config  = new ClientConfig();
-console.log('host from clientconfig = [' + config.host + ']');
-
 function UserboardInterface(){
+    this.config  = new ClientConfig().config;
+    this.host    = this.config.host;
     this.hash    = document.location.hash,
     this.user    = null;
+    this.socket  = io.connect(this.host);
+
     this.usernameInputEl  = $('#input-username');
-    this.config  = JSON.parse(server+'/config/'+user);
-
-    this.updateState();
-
     // fire our user check function when a username is put in the box
     var self    = this;
     this.usernameInputEl.change(function() { self.inputUser()}); //this.usernameInputEl) });
 
-    // shit will break here probably due to 'this' namespace happiness
+    this.updateState();
     this.formHandler();
+    this.socketListeners();
+}
 
+UserboardInterface.prototype.updateConfig = function(userconf){
+    this.userconf = userconf;
+  //          this.userconf = this.jsonReq('config/'+this.user); 
+    console.log('this context switch? user = ['+this.user+']');
+    var _this = this;
+            this.userconf.sounds.forEach( function(sound){
+            console.log("this.config.sound["+sound.title+'] @ ['
+                +sound.file_hash+']');
+                $('#sounds').append('<audio controls><source src="sound/'+_this.user+'/'+sound.file_hash+'" type="audio/wav"></audio>');
+            });
+    // this.userconf   = 
+}
+
+UserboardInterface.prototype.socketListeners = function(){
+    var _this = this;
+
+    this.socket.on('config', function(msg){_this.updateConfig(msg)});
+    this.socket.on('bootstrap', function(msg){
+        console.log('got bootstrap: '+ msg.username); 
+        _this.socket.emit('bootstrap', {user: _this.user});
+    });
+
+
+}
+
+UserboardInterface.prototype.jsonReq = function(url){
+    console.log('this.host ['+this.host+']');
+    console.log('requesting ['+url+']');
+    var json = (function(){
+        var json = null;
+        $.ajax({
+            'async' : false,
+            'global': false,
+            'url'   : url, //host+'/config/'+user,
+            'dataType' : "json",
+            'success' : function(data){ 
+                console.log('Got a JSON response: ['+data+']');
+                json = data; },
+        });
+        return json;
+    })();
+    console.log('json: '+ json);
+    return json;
 }
 
 UserboardInterface.prototype.getUserSounds  = function(){
@@ -73,7 +112,7 @@ UserboardInterface.prototype.inputUser = function(){
         console.log('We already have user ['+this.user+']. Should not be in inputUser()');
 
     }else if( this.validateUser(username) ){
-            this.user   = username;
+            this.user = username;
             this.updateState();
     }else {
         alert('[ '+username +' ] is not a valid username.');
