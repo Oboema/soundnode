@@ -17,24 +17,28 @@ function UserboardInterface(){
 
 UserboardInterface.prototype.updateConfig = function(userconf){
     this.userconf = userconf;
-  //          this.userconf = this.jsonReq('config/'+this.user); 
-    console.log('this context switch? user = ['+this.user+']');
+
     var _this = this;
-            this.userconf.sounds.forEach( function(sound){
-            console.log("this.config.sound["+sound.title+'] @ ['
-                +sound.file_hash+']');
-                $('#sounds').append('<audio controls><source src="sound/'+_this.user+'/'+sound.file_hash+'" type="audio/wav"></audio>');
-            });
+    $('#sounds').html('');
+    this.userconf.sounds.forEach( function(sound){
+        console.log("this.config.sound["+sound.title+'] @ ['+sound.file_hash+']');
+            $('#sounds').append('<audio controls><source src="sound/'+_this.user+'/'+sound.file_hash+'" type="audio/wav"></audio>');
+        });
     // this.userconf   = 
 }
 
 UserboardInterface.prototype.socketListeners = function(){
     var _this = this;
 
-    this.socket.on('config', function(msg){_this.updateConfig(msg)});
+    //this.socket.on('config', function(msg){_this.updateConfig(msg)});
+
     this.socket.on('bootstrap', function(msg){
         console.log('got bootstrap: '+ msg.username); 
         _this.socket.emit('bootstrap', {user: _this.user});
+    });
+
+    this.socket.on('update config', function(config){
+        _this.updateConfig(config);
     });
 
 
@@ -79,6 +83,14 @@ UserboardInterface.prototype.showUserBoardGui = function(){
 
     $('#username').css( 'display', 'block'); // show name div
     $('#upload').css(   'display', 'block'); // show upload form
+    
+    // this function gets called from updateState if a username was obtained from either
+    // this.user or this.hash. I'm not sure if avoiding code duplication
+    // by putting code in unrelated functions is too much of an "ends justify the means"
+    // kind of thing though. I guess you can justify it as config updates (will) trigger
+    // sound button updates (in the future), which are part of the GUI
+    this.socket.emit('bootstrap', {user: this.user});
+
 }
 
 UserboardInterface.prototype.updateState = function(){
@@ -124,7 +136,7 @@ UserboardInterface.prototype.formHandler = function(){
     this.formEl  = $('#uploadform');
     console.log('formEl = ['+this.formEl+']');
 
-    // Shit might hit the fan here with 'this' being changed from namespace etc. 
+    var _this = this; //seriously this is getting on my nerves
     this.formEl.submit(function (e) {       
         e.preventDefault();
         var data  = new FormData($(this)[0]);
@@ -139,7 +151,9 @@ UserboardInterface.prototype.formHandler = function(){
             mimeType    : 'multipart/form-data',
             type        : 'POST',
             success     : function(data){
-                console.log(data);
+                if(data === 'Server says: Upload Finished!'){
+                    _this.socket.emit('update config','placeholder');
+                }
             }
         });
     });
