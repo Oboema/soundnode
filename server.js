@@ -45,7 +45,7 @@ app.get('/userboard/config/:user', function(req,res){
     res.sendfile('userconfig/'+req.params.user+'.json');
 });
 
-app.get('/userboard/sound/:user/:sound', function(req, res){
+app.get('/sound/:user/:sound', function(req, res){
     console.log('Serving Sound [usersounds/'+req.params.user+'/'+req.params.sound+']');
     res.sendfile('usersounds/'+req.params.user+'/'+req.params.sound);
 });
@@ -58,6 +58,10 @@ app.get('/', function(req, res){
 // the page for a soundboard user
 app.get('/userboard', function(req,res){
     res.render('userboard');
+});
+
+app.get('/player', function(req, res){
+    res.render('player');
 });
 
 // sound file upload handler

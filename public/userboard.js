@@ -1,36 +1,59 @@
 function UserboardInterface(){
     this.config  = new ClientConfig().config;
     this.host    = this.config.host;
-    this.hash    = document.location.hash,
+    this.hash    = document.location.hash;
+    this.player  = null;
     this.user    = null;
     this.socket  = io.connect(this.host);
+
 
     this.usernameInputEl  = $('#input-username');
     // fire our user check function when a username is put in the box
     var self    = this;
     this.usernameInputEl.change(function() { self.inputUser()}); //this.usernameInputEl) });
-
+    $('#input-playername').change(function() { self.selectPlayer()});
     this.updateState();
     this.formHandler();
     this.socketListeners();
 }
 
 UserboardInterface.prototype.updateConfig = function(userconf){
+    // when called in callback, "this" is not the UserboardInterface instance, but "document"
+    // doesn't matter for now, as I only use it here.
     this.userconf = userconf;
 
     var _this = this;
     $('#sounds').html('');
     this.userconf.sounds.forEach( function(sound){
-        console.log("this.config.sound["+sound.title+'] @ ['+sound.file_hash+']');
-            $('#sounds').append('<audio controls><source src="sound/'+_this.user+'/'+sound.file_hash+'" type="audio/wav"></audio>');
+        //console.log("this.config.sound["+sound.title+'] @ ['+sound.file_hash+']');
+        var button_id = _this.user+'-'+sound.file_hash;
+        $('#sounds').append('<button id="'+button_id+'">'+sound.title+'</sound>');
+        _this.setButtonListener($('#'+button_id), _this.socket);
+/*
+            '<audio controls><source src="sound/'+_this.user+
+            '/'+sound.file_hash+'" type="'+sound.mimetype+'"></audio>');
+*/
         });
     // this.userconf   = 
+}
+
+UserboardInterface.prototype.setButtonListener = function(button, socket){
+    var data = {    'button_id' : button.attr('id'),
+                    'socket'    : socket};
+
+    // yeah i know, data.data ... I just really love star trek TNG
+    button.click(data, function(data){
+        console.log('sending play id = ['+data.data.button_id+']');
+        data.data.socket.emit('play', {'sound' : data.data.button_id});
+    });
 }
 
 UserboardInterface.prototype.socketListeners = function(){
     var _this = this;
 
-    //this.socket.on('config', function(msg){_this.updateConfig(msg)});
+    this.socket.on('lulz', function(msg){
+        console.log('got lulz ['+msg.lulz+']');
+    });
 
     this.socket.on('bootstrap', function(msg){
         console.log('got bootstrap: '+ msg.username); 
@@ -39,32 +62,33 @@ UserboardInterface.prototype.socketListeners = function(){
 
     this.socket.on('update config', function(config){
         _this.updateConfig(config);
+        console.log('this.userconf = ['+this.userconf+']');
     });
 
+    this.socket.on('user to player signup', function(player){
+        console.log('got user to player signup from server: ['+player.player+']');
+        _this.player = player.player;
 
+        _this.updateState();
+    });
 }
 
-UserboardInterface.prototype.jsonReq = function(url){
-    console.log('this.host ['+this.host+']');
-    console.log('requesting ['+url+']');
-    var json = (function(){
-        var json = null;
-        $.ajax({
-            'async' : false,
-            'global': false,
-            'url'   : url, //host+'/config/'+user,
-            'dataType' : "json",
-            'success' : function(data){ 
-                console.log('Got a JSON response: ['+data+']');
-                json = data; },
-        });
-        return json;
-    })();
-    console.log('json: '+ json);
-    return json;
-}
+UserboardInterface.prototype.selectPlayer  = function(){
+    var player    = $('#input-playername').val();
+    $('#input-playername').value = $('#input-playername').defaultValue;
+    console.log(document.getElementById('input-playername'));
+    if( this.player ){    //if we already have a user 
+        console.log('We already have player ['+this.player+']. Should not be in selectPlayer()');
 
-UserboardInterface.prototype.getUserSounds  = function(){
+    }else if( this.validateUser(player) ){
+            //this.player = player;
+            //this.updateState();
+            console.log('sending player ['+player+'] to server');
+            this.socket.emit('user to player signup', {player : player});
+    }else {
+        alert('[ '+player +' ] is not a valid playername.');
+    }
+ 
 
 }
 // maybe the next two function could be merged as toggleGuiVisibility or smt
@@ -72,10 +96,13 @@ UserboardInterface.prototype.showUserInput  = function(){
     this.usernameInputEl.css( 'display',  'block');  // show input box 
     $('#username').css( 'display', 'none'); // hide name div
     $('#upload').css(   'display', 'none'); // hide upload form
+    $('#player-select').css('display', 'none');  // hide player input form
+
 }
 
 UserboardInterface.prototype.showUserBoardGui = function(){
     this.usernameInputEl.css( 'display',  'none');  // hide input box 
+    $('#player-select').css('display', 'block');
 
     $('#username').html(this.user);          // update name div
 
@@ -102,13 +129,24 @@ UserboardInterface.prototype.updateState = function(){
             this.user   = tmp_user;
             this.showUserBoardGui();
         }
-    } else if( this.user ){
+    } else if( this.user  ){
         console.log('got user: ['+this.user+']');
         this.hash   = '#' + this.user;
         document.location.hash  = this.hash;    // and the page URL
         this.showUserBoardGui();
     } else {
         this.showUserInput();
+    }
+
+    if(this.player){
+        //console.log('Hiding player input box');
+        $('#player-select').css('display', 'none');
+        $('#username').append(" @ "+this.player);   // update name div
+
+        //this.socket.emit('player signup', {player: this.player});
+    }else if (this.user){
+        //console.log('showing player input box');
+        $('#player-select').css('display', 'block');        
     }
 }
 
@@ -118,7 +156,7 @@ UserboardInterface.prototype.validateUser = function(username){
 
 UserboardInterface.prototype.inputUser = function(){
 
-    username    = this.usernameInputEl.val();
+    var username    = this.usernameInputEl.val();
 
     if( this.user ){    //if we already have a user 
         console.log('We already have user ['+this.user+']. Should not be in inputUser()');
