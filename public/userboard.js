@@ -1,17 +1,23 @@
 function UserboardInterface(){
     this.config  = new ClientConfig().config;
     this.host    = this.config.host;
-    this.hash    = document.location.hash;
+    // this.hash    = window.location.hash;
     this.player  = null;
     this.user    = null;
     this.socket  = io.connect(this.host);
 
 
     this.usernameInputEl  = $('#input-username');
+    // this.usernameInputContainerEl =$('#input-username-container');
+
     // fire our user check function when a username is put in the box
     var self    = this;
     this.usernameInputEl.change(function() { self.inputUser()}); //this.usernameInputEl) });
     $('#input-playername').change(function() { self.selectPlayer()});
+    
+    $('#user_input').click(function(){
+        self.popupUserInput();
+    });
     this.updateState();
     this.formHandler();
     this.socketListeners();
@@ -26,6 +32,7 @@ UserboardInterface.prototype.updateSounds = function(userconf, _this){
         _this.setButtonListener($('#'+button_id), _this.socket);
         });
 }
+
 
 UserboardInterface.prototype.setButtonListener = function(button, socket){
     var data = {    'button_id' : button.attr('id'),
@@ -57,6 +64,9 @@ UserboardInterface.prototype.socketListeners = function(){
     this.socket.on('user to player signup', function(player){
         console.log('got user to player signup from server: ['+player.player+']');
         _this.player = player.player;
+        // if( window.location.hash.split('/').length < 2){
+        //     window.location = window.location+'/'+_this.player;
+        // }
 
         _this.updateState();
     });
@@ -66,72 +76,63 @@ UserboardInterface.prototype.selectPlayer  = function(){
     var player    = $('#input-playername').val().toLowerCase();
     $('#input-playername').value = $('#input-playername').defaultValue;
 
+    
     if( this.player ){    //if we already have a user 
         console.log('We already have player ['+this.player+']. Should not be in selectPlayer()');
 
     }else if( this.validateUser(player) ){
-            console.log('sending player ['+player+'] to server');
-            this.socket.emit('user to player signup', {player : player});
+        console.log('adding player ['+player+'] to URL hash');
+        window.location.hash = window.location.hash + '/' + player;
     }else {
         alert('[ '+player +' ] is not a valid playername.');
     }
- 
-
-}
-// maybe the next two function could be merged as toggleGuiVisibility or smt
-UserboardInterface.prototype.showUserInput  = function(){
-    this.usernameInputEl.css( 'display',  'block');  // show input box 
-    $('#username').css( 'display', 'none'); // hide name div
-    $('#upload').css(   'display', 'none'); // hide upload form
-    $('#player-select').css('display', 'none');  // hide player input form
-
-}
-
-UserboardInterface.prototype.showUserBoardGui = function(){
-    this.usernameInputEl.css( 'display',  'none');  // hide input box 
-    $('#player-select').css('display', 'block');
-
-    $('#username').html(this.user);          // update name div
-
-    $("#hidden_username").attr("value", this.user); // dirty hack to pass the username to the form handler
-
-    $('#username').css( 'display', 'block'); // show name div
-    $('#upload').css(   'display', 'block'); // show upload form
-    
-    // this function gets called from updateState if a username was obtained from either
-    // this.user or this.hash. I'm not sure if avoiding code duplication
-    // by putting code in unrelated functions is too much of an "ends justify the means"
-    // kind of thing though. I guess you can justify it as config updates (will) trigger
-    // sound button updates (in the future), which are part of the GUI
-    this.socket.emit('bootstrap', {user: this.user});
+    this.updateState(); 
 
 }
 
 UserboardInterface.prototype.updateState = function(){
+    var showGUI = false;
+    var hash_user, hash_player, hash_split;
+    hash_split = window.location.hash.substring(1).toLowerCase().split('/');
+    hash_user = hash_split[0];
+    hash_player = hash_split[1];
 
-    if( this.hash ){
-        console.log('got hash: ['+this.hash+']');
-        var tmp_user    = this.hash.substring(1).toLowerCase();    //get user from hash
-        if( this.validateUser(tmp_user) ){
-            this.user   = tmp_user;
-            this.showUserBoardGui();
+    if(hash_user && !this.user){
+        console.log('found a user ['+hash_user+'] in hash, validating..');
+        if(this.validateUser(hash_user)) {
+            this.user = hash_user;
+            this.socket.emit('bootstrap', {user: this.user});
+            console.log('set user ['+this.user+']');
         }
-    } else if( this.user  ){
-        console.log('got user: ['+this.user+']');
-        this.hash   = '#' + this.user;
-        document.location.hash  = this.hash;    // and the page URL
-        this.showUserBoardGui();
-    } else {
-        this.showUserInput();
     }
 
-    // Hide/show Player input field
-    if(this.player){
-        $('#player-select').css('display', 'none');
-        $('#username').append(" @ "+this.player);   // update name div
+    if(!this.player && hash_player){
+        if(this.validateUser(hash_player)){
+            console.log('connecting to player ['+hash_player+']');
+            this.socket.emit('user to player signup', {player : hash_player});
+        }
+    }
 
-    }else if (this.user){ // don't display player input box when you still need to input user
-        $('#player-select').css('display', 'block');        
+    if(this.user && !this.player){
+        $('#input-playername-container').css('display', 'block');
+        $('#input-username').css( 'display',  'none');  // hide user input box 
+    }
+
+    if(!this.user) {
+        $('#input-username').css( 'display',  'block');  // show user input box 
+        $('#input-playername-container').css('display', 'none');
+    }
+
+    if(this.player){
+        $('#input-playername-container').css('display', 'none');
+    }
+
+    if(this.user){
+        window.location.hash = '#' + this.user;
+    }
+
+    if(this.player && window.location.hash.split('/').length < 2){
+        window.location.hash = window.location.hash + '/' + this.player;
     }
 }
 
@@ -147,8 +148,9 @@ UserboardInterface.prototype.inputUser = function(){
         console.log('We already have user ['+this.user+']. Should not be in inputUser()');
 
     }else if( this.validateUser(username) ){
-            this.user = username;
-            this.updateState();
+        console.log('setting username in hash, calling updateState()');
+        window.location.hash = '#'+ username;
+        this.updateState();
     }else {
         alert('[ '+username +' ] is not a valid username.');
     }

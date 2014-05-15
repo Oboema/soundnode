@@ -40,9 +40,11 @@ PlayerboardInterface.prototype.loadSounds = function(config, _this){
     
     sounds.forEach(function(sound){
         var button_id = user+'-'+sound.file_hash;
-        var audioElString = '<audio id='+button_id+' controls><source src="sound/'+user+
-            '/'+sound.file_hash+'" type="'+sound.mimetype+'"></audio>';
-        $('#sounds').append(audioElString);        
+        if(! document.getElementById(button_id)){
+            var audioElString = '<audio id='+button_id+' controls><source src="sound/'+user+
+                '/'+sound.file_hash+'" type="'+sound.mimetype+'"></audio>';
+            $('#sounds').append(audioElString);        
+        }
 
     });
 };

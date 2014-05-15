@@ -1,0 +1,236 @@
+/* Background colours for the sound buttons */
+#sound-button-1 { background-color:		rgb(215, 47, 97); }
+#sound-button-2 { background-color:		rgb(240, 106, 53); }
+#sound-button-3 { background-color:		rgb(156,34,156); }
+#sound-button-4 { background-color:		rgb(123, 214, 47); }
+#sound-button-5 { background-color:		rgb(240, 160, 53); }
+#sound-button-6 { background-color:		rgb(36, 165, 110); }
+#sound-button-7 { background-color:		rgb(42, 106, 155); }
+/* #sound-button-8 { background-color:		rgb(57, 57, 169); } */
+#sound-button-9 { background-color:		rgb(97, 47, 164); }
+#sound-button-10 { background-color:	rgb(157, 35, 157); }
+#sound-button-11 { background-color:	rgb(216, 48, 99); }
+#sound-button-12 { background-color:	rgb(242, 107, 54); }
+#sound-button-13 { background-color:	rgb(215, 47, 97); }
+#sound-button-14 { background-color:	rgb(240, 106, 53); }
+#sound-button-15 { background-color:	rgb(156,34,156); }
+#sound-button-16 { background-color:	rgb(123, 214, 47); }
+#sound-button-17 { background-color:	rgb(240, 160, 53); }
+#sound-button-18 { background-color:	rgb(36, 165, 110); }
+#sound-button-19 { background-color:	rgb(42, 106, 155); }
+#sound-button-20 { background-color:	rgb(57, 57, 169); }
+#sound-button-21 { background-color:	rgb(97, 47, 164); }
+#sound-button-22 { background-color:	rgb(157, 35, 157); }
+#sound-button-23 { background-color:	rgb(216, 48, 99); }
+#sound-button-24 { background-color:	rgb(242, 107, 54); }
+
+/* Textshadow colours for the sound buttons */
+#sound-button-1 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(215, 47, 97),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-2 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(240, 106, 53),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-3 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(156,34,156),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-4 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(123, 214, 47),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-5 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(240, 160, 53),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-6 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(36, 165, 110),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-7 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(42, 106, 155),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+/* #sound-button-8 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(57, 57, 169),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); } */
+#sound-button-9 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(97, 47, 164),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-10 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(157, 35, 157),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-11 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(216, 48, 99),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-12 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(242, 107, 54),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-13 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(215, 47, 97),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-14 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(240, 106, 53),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-15 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(156,34,156),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-16 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(123, 214, 47),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-17 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(240, 160, 53),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-18 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(36, 165, 110),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-19 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(42, 106, 155),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-20 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(57, 57, 169),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-21 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(97, 47, 164),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-22 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(157, 35, 157),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-23 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(216, 48, 99),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-24 .sound-button-icon {	text-shadow:	0.05em 0.025em 0 rgb(242, 107, 54),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+
+/* Textshadow colours for the play buttons */
+/* #sound-button-1:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(215, 47, 97),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-2:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(240, 106, 53),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-3:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(156,34,156),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-4:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(123, 214, 47),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-5:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(240, 160, 53),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-6:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(36, 165, 110),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-7:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(42, 106, 155),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-8:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(57, 57, 169),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-9:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(97, 47, 164),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-10:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(157, 35, 157),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-11:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(216, 48, 99),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-12:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(242, 107, 54),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-13:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(215, 47, 97),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-14:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(240, 106, 53),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-15:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(156,34,156),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-16:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(123, 214, 47),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-17:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(240, 160, 53),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-18:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(36, 165, 110),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-19:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(42, 106, 155),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-20:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(57, 57, 169),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-21:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(97, 47, 164),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-22:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(157, 35, 157),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-23:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(216, 48, 99),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); }
+#sound-button-24:first-child:before {	text-shadow:	0.05em 0.025em 0 rgb(242, 107, 54),
+														0.125em 0.1em 0 rgba(0,0,0,0.15); } */
+
+#sound-button-1 .sound-button-text,
+#sound-button-1 .sound-button-icon {	color:	#333; }
+#sound-button-2 .sound-button-text,
+#sound-button-2 .sound-button-icon {	color:	#333; }
+#sound-button-3 .sound-button-text,
+#sound-button-3 .sound-button-icon {	color:	#dedede; }
+#sound-button-4 .sound-button-text,
+#sound-button-4 .sound-button-icon {	color:	#333; }
+#sound-button-5 .sound-button-text,
+#sound-button-5 .sound-button-icon {	color:	#333; }
+#sound-button-6 .sound-button-text,
+#sound-button-6 .sound-button-icon {	color:	#333; }
+#sound-button-7 .sound-button-text,
+#sound-button-7 .sound-button-icon {	color:	#dedede; }
+/* #sound-button-8 .sound-button-text,
+#sound-button-8 .sound-button-icon {	color:	#dedede; } */
+#sound-button-9 .sound-button-text,
+#sound-button-9 .sound-button-icon {	color:	#dedede; }
+#sound-button-10 .sound-button-text,
+#sound-button-10 .sound-button-icon {	color:	#dedede; }
+#sound-button-11 .sound-button-text,
+#sound-button-11 .sound-button-icon {	color:	#333; }
+#sound-button-12 .sound-button-text,
+#sound-button-12 .sound-button-icon {	color:	#333; }
+#sound-button-13 .sound-button-text,
+#sound-button-13 .sound-button-icon {	color:	#333; }
+#sound-button-14 .sound-button-text,
+#sound-button-14 .sound-button-icon {	color:	#333; }
+#sound-button-15 .sound-button-text,
+#sound-button-15 .sound-button-icon {	color:	#dedede; }
+#sound-button-16 .sound-button-text,
+#sound-button-16 .sound-button-icon {	color:	#333; }
+#sound-button-17 .sound-button-text,
+#sound-button-17 .sound-button-icon {	color:	#333; }
+#sound-button-18 .sound-button-text,
+#sound-button-18 .sound-button-icon {	color:	#333; }
+#sound-button-19 .sound-button-text,
+#sound-button-19 .sound-button-icon {	color:	#dedede; }
+#sound-button-20 .sound-button-text,
+#sound-button-20 .sound-button-icon {	color:	#dedede; }
+#sound-button-21 .sound-button-text,
+#sound-button-21 .sound-button-icon {	color:	#dedede; }
+#sound-button-22 .sound-button-text,
+#sound-button-22 .sound-button-icon {	color:	#dedede; }
+#sound-button-23 .sound-button-text,
+#sound-button-23 .sound-button-icon {	color:	#333; }
+#sound-button-24 .sound-button-text,
+#sound-button-24 .sound-button-icon {	color:	#333; }
+
+#sound-button-1 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(215, 47, 97),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+#sound-button-2 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(240, 106, 53),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+#sound-button-3 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(156,34,156),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+#sound-button-4 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(123, 214, 47),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+#sound-button-5 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(240, 160, 53),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+#sound-button-6 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(36, 165, 110),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+#sound-button-7 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(42, 106, 155),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+/* #sound-button-8 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(57, 57, 169),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); } */
+#sound-button-9 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(97, 47, 164),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+#sound-button-10 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(157, 35, 157),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+#sound-button-11 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(216, 48, 99),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+#sound-button-12 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(242, 107, 54),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+#sound-button-13 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(215, 47, 97),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+#sound-button-14 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(240, 106, 53),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+#sound-button-15 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(156,34,156),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+#sound-button-16 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(123, 214, 47),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+#sound-button-17 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(240, 160, 53),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+#sound-button-18 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(36, 165, 110),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+#sound-button-19 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(42, 106, 155),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+#sound-button-20 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(57, 57, 169),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+#sound-button-21 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(97, 47, 164),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+#sound-button-22 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(157, 35, 157),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+#sound-button-23 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(216, 48, 99),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+#sound-button-24 .sound-button-text {	text-shadow:	0.025em 0.025em 0 rgb(242, 107, 54),
+														0.05em 0.05em 0 rgba(0,0,0,0.25); }
+
+/* #sound-button-1 .sound-button-text:after { background: linear-gradient(to right, rgba(215, 47, 97, 0), rgba(215, 47, 97, 1) 50%); } */
+/* #sound-button-2 .sound-button-text:after { background: linear-gradient(to right, rgba(240, 106, 53, 0), rgba(240, 106, 53, 1) 50%); } */
+/* #sound-button-3 .sound-button-text:after { background: linear-gradient(to right, rgba(156,34,156, 0), rgba(156,34,156, 1) 50%); } */
+/* #sound-button-4 .sound-button-text:after { background: linear-gradient(to right, rgba(123, 214, 47, 0), rgba(123, 214, 47, 1) 50%); } */
+/* #sound-button-5 .sound-button-text:after { background: linear-gradient(to right, rgba(240, 160, 53, 0), rgba(240, 160, 53, 1) 50%); } */
+/* #sound-button-6 .sound-button-text:after { background: linear-gradient(to right, rgba(36, 165, 110, 0), rgba(36, 165, 110, 1) 50%); } */
+/* #sound-button-7 .sound-button-text:after { background: linear-gradient(to right, rgba(42, 106, 155, 0), rgba(42, 106, 155, 1) 50%); } */
+/* #sound-button-8 .sound-button-text:after { background: linear-gradient(to right, rgba(57, 57, 169, 0), rgba(57, 57, 169, 1) 50%); } */
+/* #sound-button-9 .sound-button-text:after { background: linear-gradient(to right, rgba(97, 47, 164, 0), rgba(97, 47, 164, 1) 50%); } */
+/* #sound-button-10 .sound-button-text:after { background: linear-gradient(to right, rgba(157, 35, 157, 0), rgba(157, 35, 157, 1) 50%); } */
+/* #sound-button-11 .sound-button-text:after { background: linear-gradient(to right, rgba(216, 48, 99, 0), rgba(216, 48, 99, 1) 50%); } */
+/* #sound-button-12 .sound-button-text:after { background: linear-gradient(to right, rgba(242, 107, 54, 0), rgba(242, 107, 54, 1) 50%); } */

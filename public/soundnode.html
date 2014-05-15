@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="http://yui.yahooapis.com/combo?pure/0.4.2/base-min.css&pure/0.4.2/buttons-min.css&pure/0.4.2/forms-nr-min.css&pure/0.4.2/grids-nr-min.css&pure/0.4.2/menus-nr-min.css"></link>
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"></link>
+	<link href="soundnode.css" rel="stylesheet"></link>
+	<link href="buttoncoloursbyid.css" rel="stylesheet"></link>
+	<script type="text/javascript" src="/config.js"></script>
+    <script type="text/javascript" src="/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket_io.js"></script>
+    <script type="text/javascript" src="/userboard.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
+</head>
+<body>
+	<div>
+		<div class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
+			<a class="pure-menu-heading" href="">
+				<span id="heading-icon" class="fa-stack fa-lg">
+					<i class="fa fa-cloud fa-stack-2x"></i>
+					<i class="fa fa-bullhorn fa-stack-1x fa-inverse"></i>
+				</span>
+				<span id="heading-label">Soundnode</span>
+			</a>
+			<ul>
+				<li class="pure-menu-selected">
+					<div id="user_input"><i class="fa fa-th fa-lg fa-fw"></i></div></li>
+				<li><div id="plus"><i class="fa fa-plus fa-lg fa-fw"></i></div></li>
+				<li><div id="settings"><i class="fa fa-cogs fa-lg fa-fw"></i></div></li>
+				<li class="pure-menu-separator"></li>
+				<li><div id="volume"><i class="fa fa-volume-up fa-lg fa-fw"></i></div></li>
+			</ul>
+		</div>
+		<!-- splash stuff to make input button fancy as in http://purecss.io/layouts/marketing/  But it doesn't work -->
+		<div class="splash-container"><div class='splash'> 
+			<div id="input-username-container" class='splash_head' >
+				<input id='input-username' type="text", placeholder='Username'></input>
+			</div>
+			<div id="input-playername-container" class='splash_head'>
+				<input id='input-playername' type="text", placeholder='Playername'></input>
+			</div>
+
+		</div></div>
+
+		<div class="pure-g">
+			
+		</div>
+	</div>
+</body>
+</html>
