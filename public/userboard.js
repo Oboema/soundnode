@@ -25,12 +25,29 @@ function UserboardInterface(){
 
 UserboardInterface.prototype.updateSounds = function(userconf, _this){
     $('#sounds').html('');
-    userconf.sounds.forEach( function(sound){
+    // userconf.sounds.forEach( function(sound){
+    for(var i = 0; i < userconf.sounds.length; i++){
+        sound = userconf.sounds[i];    
         console.log('displaying sounds');
         var button_id = _this.user+'-'+sound.file_hash;
-        $('#sounds').append('<button id="'+button_id+'">'+sound.title+'</sound>');
-        _this.setButtonListener($('#'+button_id), _this.socket);
-        });
+        var button_html = '<div class="pure-u"> <a id="sound-button-'+i+'" class="pure-button '+
+                          'sound-button sound-button-with-icon sound-button-with-text" href="#">'+
+                          '<span><i class="sound-button-icon fa fa-fw fa-bell fa-lg"></i>'+
+                          '<span id="'+button_id+ '" class="sound-button-text">'+sound.title+'</span></span></a></div>';
+        // $('#sounds').append('<button id="'+button_id+'">'+sound.title+'</sound>');
+        $('#sounds').append(button_html);
+        _this.setButtonListener( $('#'+button_id), _this.socket );
+    };
+
+        // <div class="pure-u">
+        //     <a id="sound-button-2" class="pure-button sound-button sound-button-with-icon sound-button-with-text" href="#">
+        //         <span>
+        //             <i class="sound-button-icon fa fa-fw fa-bell fa-lg"></i>
+        //             <span class="sound-button-text">De naam voor dit geluid is echt moeilijk veel te lang. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor tincidunt metus a cursus. Cras sit amet ipsum quis elit lobortis placerat. Sed arcu enim, feugiat at tellus a, tempus mattis risus. Maecenas porta venenatis quam sed accumsan. In vestibulum urna sit amet felis consequat bibendum. Vestibulum sed massa at sem dapibus mattis vitae eget nunc. Duis eu dui sit amet augue interdum condimentum. Nulla venenatis massa et enim auctor placerat.</span>
+        //         </span>
+        //     </a>
+        // </div>
+
 }
 
 
@@ -64,10 +81,6 @@ UserboardInterface.prototype.socketListeners = function(){
     this.socket.on('user to player signup', function(player){
         console.log('got user to player signup from server: ['+player.player+']');
         _this.player = player.player;
-        // if( window.location.hash.split('/').length < 2){
-        //     window.location = window.location+'/'+_this.player;
-        // }
-
         _this.updateState();
     });
 }
