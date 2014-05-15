@@ -30,10 +30,10 @@ UserboardInterface.prototype.updateSounds = function(userconf, _this){
         sound = userconf.sounds[i];    
         console.log('displaying sounds');
         var button_id = _this.user+'-'+sound.file_hash;
-        var button_html = '<div class="pure-u"> <a id="sound-button-'+i+'" class="pure-button '+
-                          'sound-button sound-button-with-icon sound-button-with-text" href="#">'+
+        var button_html = '<div id="'+button_id+'"class="pure-u"> <span id="sound-button-'+i+'" class="pure-button '+
+                          'sound-button sound-button-with-icon sound-button-with-text" >'+
                           '<span><i class="sound-button-icon fa fa-fw fa-bell fa-lg"></i>'+
-                          '<span id="'+button_id+ '" class="sound-button-text">'+sound.title+'</span></span></a></div>';
+                          '<span class="sound-button-text">'+sound.title+'</span></span></span></div>';
         // $('#sounds').append('<button id="'+button_id+'">'+sound.title+'</sound>');
         $('#sounds').append(button_html);
         _this.setButtonListener( $('#'+button_id), _this.socket );
