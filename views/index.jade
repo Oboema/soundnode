@@ -1,25 +1,12 @@
 doctype html
 html(lang="en")
   head
-    title nodeFeed
+    title SoundNode
     link(rel="stylesheet", type="text/css", href="/index.css")
     script(type="text/javascript", src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js")
-    //script(type="text/javascript", src="http://cdn.socket.io/stable/socket.io.js")
     script(type="text/javascript", src="/socket_io.js")
-    script(type="text/javascript", src="/feed.js")
+    script(type="text/javascript", src="/index.js")
   body
-    #heading
-      h1 News Feed
-    #content
-      #categories
-        ul#category_list
-      #feed
-        ul#feed_list
-    #but1.button Button 1
-    #but2.button Button 2
-    #but3.button Button 3
-    #but4.button Button 4
-    #footer
-      p
-        span#client_count 0
-        |  connected clients
+    div#type-selector
+      div#soundboard Board
+      div#player Player

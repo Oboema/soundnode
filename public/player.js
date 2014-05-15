@@ -44,30 +44,8 @@ PlayerboardInterface.prototype.loadSounds = function(config, _this){
             '/'+sound.file_hash+'" type="'+sound.mimetype+'"></audio>';
         $('#sounds').append(audioElString);        
 
-        // $('#sounds').append('<button id="'+button_id+'">'+sound.title+'</sound>');
-        // _this.setButtonListener($('#'+button_id), _this.socket);
     });
 };
-/*
-            '<audio controls><source src="sound/'+_this.user+
-            '/'+sound.file_hash+'" type="'+sound.mimetype+'"></audio>');
-*/
-
-/*
-
-           $(function() {
-                $("audio").removeAttr("controls").each(function(i, audioElement) {
-                    var audio = $(this);
-                    var that = this; //closure to keep reference to current audio tag
-                    $("#doc").append($('<button>'+audio.attr("title")+'</button>').click(function() {
-                        that.play();
-                    }));
-                });
-            });
-*/
-
-
-
 
 
 PlayerboardInterface.prototype.validatePlayer = function(name){
@@ -78,7 +56,7 @@ PlayerboardInterface.prototype.validatePlayer = function(name){
 PlayerboardInterface.prototype.inputPlayer = function(){
     var playerEl = $('#input-playername');
 
-    var playername = playerEl.val();
+    var playername = playerEl.val().toLowerCase();
     //console.log('validating playername ['+playername+']');
     if(this.validatePlayer(playername)){
         this.player = playername;

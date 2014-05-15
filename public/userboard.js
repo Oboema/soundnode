@@ -17,24 +17,14 @@ function UserboardInterface(){
     this.socketListeners();
 }
 
-UserboardInterface.prototype.updateConfig = function(userconf){
-    // when called in callback, "this" is not the UserboardInterface instance, but "document"
-    // doesn't matter for now, as I only use it here.
-    this.userconf = userconf;
-
-    var _this = this;
+UserboardInterface.prototype.updateSounds = function(userconf, _this){
     $('#sounds').html('');
-    this.userconf.sounds.forEach( function(sound){
-        //console.log("this.config.sound["+sound.title+'] @ ['+sound.file_hash+']');
+    userconf.sounds.forEach( function(sound){
+        console.log('displaying sounds');
         var button_id = _this.user+'-'+sound.file_hash;
         $('#sounds').append('<button id="'+button_id+'">'+sound.title+'</sound>');
         _this.setButtonListener($('#'+button_id), _this.socket);
-/*
-            '<audio controls><source src="sound/'+_this.user+
-            '/'+sound.file_hash+'" type="'+sound.mimetype+'"></audio>');
-*/
         });
-    // this.userconf   = 
 }
 
 UserboardInterface.prototype.setButtonListener = function(button, socket){
@@ -61,8 +51,7 @@ UserboardInterface.prototype.socketListeners = function(){
     });
 
     this.socket.on('update config', function(config){
-        _this.updateConfig(config);
-        console.log('this.userconf = ['+this.userconf+']');
+        _this.updateSounds(config, _this);
     });
 
     this.socket.on('user to player signup', function(player){
@@ -74,15 +63,13 @@ UserboardInterface.prototype.socketListeners = function(){
 }
 
 UserboardInterface.prototype.selectPlayer  = function(){
-    var player    = $('#input-playername').val();
+    var player    = $('#input-playername').val().toLowerCase();
     $('#input-playername').value = $('#input-playername').defaultValue;
-    console.log(document.getElementById('input-playername'));
+
     if( this.player ){    //if we already have a user 
         console.log('We already have player ['+this.player+']. Should not be in selectPlayer()');
 
     }else if( this.validateUser(player) ){
-            //this.player = player;
-            //this.updateState();
             console.log('sending player ['+player+'] to server');
             this.socket.emit('user to player signup', {player : player});
     }else {
@@ -124,7 +111,7 @@ UserboardInterface.prototype.updateState = function(){
 
     if( this.hash ){
         console.log('got hash: ['+this.hash+']');
-        var tmp_user    = this.hash.substring(1);    //get user from hash
+        var tmp_user    = this.hash.substring(1).toLowerCase();    //get user from hash
         if( this.validateUser(tmp_user) ){
             this.user   = tmp_user;
             this.showUserBoardGui();
@@ -138,14 +125,12 @@ UserboardInterface.prototype.updateState = function(){
         this.showUserInput();
     }
 
+    // Hide/show Player input field
     if(this.player){
-        //console.log('Hiding player input box');
         $('#player-select').css('display', 'none');
         $('#username').append(" @ "+this.player);   // update name div
 
-        //this.socket.emit('player signup', {player: this.player});
-    }else if (this.user){
-        //console.log('showing player input box');
+    }else if (this.user){ // don't display player input box when you still need to input user
         $('#player-select').css('display', 'block');        
     }
 }
@@ -156,7 +141,7 @@ UserboardInterface.prototype.validateUser = function(username){
 
 UserboardInterface.prototype.inputUser = function(){
 
-    var username    = this.usernameInputEl.val();
+    var username    = this.usernameInputEl.val().toLowerCase();
 
     if( this.user ){    //if we already have a user 
         console.log('We already have user ['+this.user+']. Should not be in inputUser()');
@@ -177,23 +162,26 @@ UserboardInterface.prototype.formHandler = function(){
     var _this = this; //seriously this is getting on my nerves
     this.formEl.submit(function (e) {       
         e.preventDefault();
-        var data  = new FormData($(this)[0]);
-        console.log('form data ['+data+']');
-        $.ajax({
-            url         : '/soundupload',
-            data        : data,
-            user        : this.user,
-            processData : false,
-            contentType : false,
-            //contentType : 'multipart/form-data', //false,
-            mimeType    : 'multipart/form-data',
-            type        : 'POST',
-            success     : function(data){
-                if(data === 'Server says: Upload Finished!'){
-                    _this.socket.emit('update config','placeholder');
+
+        if(e.target.elements[3].value){ // if there's a file in the upload box
+            var data  = new FormData($(this)[0]);
+            $.ajax({
+                url         : '/soundupload',
+                data        : data,
+                user        : this.user,
+                processData : false,
+                contentType : false,
+                //contentType : 'multipart/form-data', //false,
+                mimeType    : 'multipart/form-data',
+                type        : 'POST',
+                success     : function(data){
+                    if(data === 'Server says: Upload Finished!'){
+                        _this.socket.emit('update config','placeholder');
+                    }
                 }
-            }
-        });
+            });
+        }
+
     });
 
 }
