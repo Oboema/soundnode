@@ -15,9 +15,18 @@ function UserboardInterface(){
     this.usernameInputEl.change(function() { self.inputUser()}); //this.usernameInputEl) });
     $('#input-playername').change(function() { self.selectPlayer()});
     
-    $('#user_input').click(function(){
-        self.popupUserInput();
+    $('#upload_popup').click(function(){
+        if( self.user){
+            $('#upload_form_container').css('display', 'block');
+        }
     });
+
+    $('#close_upload_form_container').click(function(){
+        $('#upload_form_container').css('display', 'none');
+    });
+
+
+
     this.updateState();
     this.formHandler();
     this.socketListeners();
@@ -25,28 +34,18 @@ function UserboardInterface(){
 
 UserboardInterface.prototype.updateSounds = function(userconf, _this){
     $('#sounds').html('');
-    // userconf.sounds.forEach( function(sound){
+    // userconf.sounds.forEach( function(sound){`
     for(var i = 0; i < userconf.sounds.length; i++){
         sound = userconf.sounds[i];    
-        console.log('displaying sounds');
+        console.log('adding sound ['+sound.title+']');
         var button_id = _this.user+'-'+sound.file_hash;
         var button_html = '<div id="'+button_id+'"class="pure-u"> <span id="sound-button-'+i+'" class="pure-button '+
                           'sound-button sound-button-with-icon sound-button-with-text" >'+
                           '<span><i class="sound-button-icon fa fa-fw fa-bell fa-lg"></i>'+
-                          '<span class="sound-button-text">'+sound.title+'</span></span></span></div>';
-        // $('#sounds').append('<button id="'+button_id+'">'+sound.title+'</sound>');
-        $('#sounds').append(button_html);
+                          '<span class="sound-button-text">'+sound.title+'</span></span></span></div>'; 
+       $('#sounds').append(button_html);
         _this.setButtonListener( $('#'+button_id), _this.socket );
     };
-
-        // <div class="pure-u">
-        //     <a id="sound-button-2" class="pure-button sound-button sound-button-with-icon sound-button-with-text" href="#">
-        //         <span>
-        //             <i class="sound-button-icon fa fa-fw fa-bell fa-lg"></i>
-        //             <span class="sound-button-text">De naam voor dit geluid is echt moeilijk veel te lang. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor tincidunt metus a cursus. Cras sit amet ipsum quis elit lobortis placerat. Sed arcu enim, feugiat at tellus a, tempus mattis risus. Maecenas porta venenatis quam sed accumsan. In vestibulum urna sit amet felis consequat bibendum. Vestibulum sed massa at sem dapibus mattis vitae eget nunc. Duis eu dui sit amet augue interdum condimentum. Nulla venenatis massa et enim auctor placerat.</span>
-        //         </span>
-        //     </a>
-        // </div>
 
 }
 
@@ -114,6 +113,8 @@ UserboardInterface.prototype.updateState = function(){
         console.log('found a user ['+hash_user+'] in hash, validating..');
         if(this.validateUser(hash_user)) {
             this.user = hash_user;
+            console.log('setting hidden_username to ['+this.user+']');
+            $('#hidden_username').attr('value', this.user);
             this.socket.emit('bootstrap', {user: this.user});
             console.log('set user ['+this.user+']');
         }
@@ -177,13 +178,13 @@ UserboardInterface.prototype.formHandler = function(){
     var _this = this; //seriously this is getting on my nerves
     this.formEl.submit(function (e) {       
         e.preventDefault();
-
+        console.log('uploading file ['+e.target.elements[3].value+'] from user ['+_this.user+']');
         if(e.target.elements[3].value){ // if there's a file in the upload box
             var data  = new FormData($(this)[0]);
             $.ajax({
                 url         : '/soundupload',
                 data        : data,
-                user        : this.user,
+                user        : _this.user,
                 processData : false,
                 contentType : false,
                 //contentType : 'multipart/form-data', //false,

@@ -4,7 +4,7 @@
 	<link rel="stylesheet" href="http://yui.yahooapis.com/combo?pure/0.4.2/base-min.css&pure/0.4.2/buttons-min.css&pure/0.4.2/forms-nr-min.css&pure/0.4.2/grids-nr-min.css&pure/0.4.2/menus-nr-min.css"></link>
 	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"></link>
 	<link href="soundnode.css" rel="stylesheet"></link>
-	<link href="buttoncoloursbyid.css" rel="stylesheet"></link>
+	<!-- <link href="buttoncoloursbyid.css" rel="stylesheet"></link> -->
 	<script type="text/javascript" src="/config.js"></script>
     <script type="text/javascript" src="/jquery.min.js"></script>
     <script type="text/javascript" src="/socket_io.js"></script>
@@ -23,8 +23,8 @@
 			</a>
 			<ul>
 				<li class="pure-menu-selected">
-					<div id="user_input"><i class="fa fa-th fa-lg fa-fw"></i></div></li>
-				<li><div id="plus"><i class="fa fa-plus fa-lg fa-fw"></i></div></li>
+					<div id="something"><i class="fa fa-th fa-lg fa-fw"></i></div></li>
+				<li><div id="upload_popup"><i class="fa fa-plus fa-lg fa-fw"></i></div></li>
 				<li><div id="settings"><i class="fa fa-cogs fa-lg fa-fw"></i></div></li>
 				<li class="pure-menu-separator"></li>
 				<li><div id="volume"><i class="fa fa-volume-up fa-lg fa-fw"></i></div></li>
@@ -40,6 +40,15 @@
 			</div>
 
 		</div></div>
+		<div id='upload_form_container'> Je moeder is lelijk<span id='close_upload_form_container'>X</span>
+			<form method ="POST" action="/soundupload" enctype="multipart/form-data" id="uploadform">
+				<input type="hidden" name="_method" value="PUT">
+				<input id="hidden_username" type="hidden" name="username" value="">
+				<p>Title<input type="text" name="title"></p>
+				<p>File<input type="file" name="soundclip"></p>
+				<p><input type="submit" value="upload"></p>
+			</form>
+		</div>
 
 		<div id='sounds' class="pure-g">
 			

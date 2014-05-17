@@ -180,7 +180,28 @@
 }
 
 /* Boema changes */
-/*
-#input-username-container{
-	display: none;
-}*/
+
+#upload_form_container {
+
+	z-index:     10;
+	display     : none;
+	position    : fixed;
+	float       : middle;
+	height      : 80%;
+	width       : 50%;
+	margin-left : auto;
+	margin-right: auto;
+	background  : #ccf;
+	color       : black;
+	border-style: solid;
+	border-color: black;
+	border-width: 1em;
+
+}
+
+#close_upload_form_container{
+	float      : right;
+	font-size  : 3em;
+	color      : red;
+	font-weight:bolder;
+}
