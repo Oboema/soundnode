@@ -39,12 +39,17 @@ UserboardInterface.prototype.updateSounds = function(userconf, _this){
         sound = userconf.sounds[i];    
         console.log('adding sound ['+sound.title+']');
         var button_id = _this.user+'-'+sound.file_hash;
-        var button_html = '<div id="'+button_id+'"class="pure-u"> <span id="sound-button-'+i+'" class="pure-button '+
-                          'sound-button sound-button-with-icon sound-button-with-text" >'+
-                          '<span><i class="sound-button-icon fa fa-fw fa-bell fa-lg"></i>'+
-                          '<span class="sound-button-text">'+sound.title+'</span></span></span></div>'; 
+        var button_html =   '<div id="'+button_id+'"class="pure-u"> '+
+                                '<span id="sound-button-'+i+'" class="pure-button sound-button sound-button-with-icon sound-button-with-text" >'+
+                                    '<span>'+
+                                        '<i class="sound-button-icon fa fa-fw fa-bell fa-lg"></i>'+
+                                        '<span class="sound-button-text">'+sound.title+'</span>'+
+                                        '<span class="playing_button ">&#xf04b</span>'+
+                                    '</span>'+
+                                '</span>'+
+                            '</div>'; 
        $('#sounds').append(button_html);
-        _this.setButtonListener( $('#'+button_id), _this.socket );
+        _this.setButtonListener( $('#'+button_id), _this.socket);
     };
 
 }
@@ -54,10 +59,13 @@ UserboardInterface.prototype.setButtonListener = function(button, socket){
     var data = {    'button_id' : button.attr('id'),
                     'socket'    : socket};
 
-    // yeah i know, data.data ... I just really love star trek TNG
-    button.click(data, function(data){
-        console.log('sending play id = ['+data.data.button_id+']');
-        data.data.socket.emit('play', {'sound' : data.data.button_id});
+    button.click(data, function(info){
+        console.log('sending play id = ['+info.data.button_id+']');
+        //console.log('in button listener, id: ['+$(this).find("span.playing_button").attr('class')+']');
+        $(this).find(".playing_button").addClass('playing'); // show the play thing
+        
+        info.data.socket.emit('play', {'sound' : info.data.button_id});
+
     });
 }
 
@@ -77,9 +85,14 @@ UserboardInterface.prototype.socketListeners = function(){
         _this.updateSounds(config, _this);
     });
 
-    this.socket.on('user to player signup', function(player){
-        console.log('got user to player signup from server: ['+player.player+']');
-        _this.player = player.player;
+    this.socket.on('sound stopped', function(msg){
+        console.log('server said sound ['+msg.sound+'] has stopped playing');
+        $('#'+msg.sound).find(".playing_button").removeClass('playing'); // hide the play thing
+        // console.log('brah ['+brah.attr('class')+']' );
+    });
+
+    this.socket.on('user to player signup', function(data){
+        _this.player = data.player;
         _this.updateState();
     });
 }
@@ -123,7 +136,7 @@ UserboardInterface.prototype.updateState = function(){
     if(!this.player && hash_player){
         if(this.validateUser(hash_player)){
             console.log('connecting to player ['+hash_player+']');
-            this.socket.emit('user to player signup', {player : hash_player});
+            this.socket.emit('user to player signup', {player : hash_player, user : this.user});
         }
     }
 
