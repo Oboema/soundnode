@@ -141,7 +141,7 @@ UserboardInterface.prototype.updateState = function(){
     }
 
     if(this.user && !this.player){
-        $('#input-playername-container').css('display', 'block');
+        $('#input-playername-container').css('display', 'block');   // show player input box
         $('#input-username').css( 'display',  'none');  // hide user input box 
     }
 

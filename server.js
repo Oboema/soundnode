@@ -57,9 +57,9 @@ app.get('/', function(req, res){
 
 // the page for a soundboard user
 app.get('/userboard', function(req,res){
-    //res.render('userboard');
-    res.sendfile('public/soundnode.html');
+    res.render('userboard');
 });
+
 
 app.get('/player', function(req, res){
     res.render('player');
