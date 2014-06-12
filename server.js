@@ -92,7 +92,8 @@ app.get('/userboard/:user/:player?/?', function(req,res){
         jade_data       = {   'user'  : null,
                             'player'  : null},
         url             = '/userboard';
-                           
+
+    console.log('/userboard/:user/ route: user ['+user+']');
     if(!valid_user){ //if no valid user, try again
         res.redirect(url); //, {jade_data : jade_data});
     }else if(!valid_player){//if only valid user, redirect to user route

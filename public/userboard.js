@@ -137,12 +137,13 @@ UserboardInterface.prototype.updateState = function(){
 
 // DRY this shit by passing a variable or smt
 UserboardInterface.prototype.inputUser = function(self){
-    window.location = window.location.origin+'/userboard/'+-self.usernameInputEl.val()+'/';
+    window.location = window.location.origin+'/userboard/'+
+                        self.usernameInputEl.val().toLowerCase()+'/';
 }
 
 UserboardInterface.prototype.selectPlayer  = function(self){
     window.location =   window.location.origin+'/userboard/'+
-                        self.user+'/'+self.playernameInputEl.val()+'/';
+                        self.user+'/'+self.playernameInputEl.val().toLowerCase()+'/';
 }
 
 
