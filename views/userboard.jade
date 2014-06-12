@@ -2,12 +2,14 @@ doctype html
 html(lang="en")
     head
         title Userboard
-        link(rel="stylesheet", type= "text/css", href="/combo.css")
+        link(rel="stylesheet", type= "text/css", href="/pure-min.css")
         link(rel="stylesheet", type= "text/css", href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css")
         link(rel="stylesheet", type="text/css", href="/soundnode.css")
         script(type="text/javascript", src="/config.js")
         script(type="text/javascript", src="/jquery.min.js")
         script(type="text/javascript", src="/socket_io.js")
+        script(type='text/javascript')
+            |var jade_data      = !{JSON.stringify(jade_data)}
         script(type="text/javascript", src="/userboard.js")
         meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
     body
@@ -19,14 +21,14 @@ html(lang="en")
                         i.fa.fa-bullhorn.fa-stack-1x.fa-inverse
                     span#heading-label Soundnode
                 ul 
-                    li.pure-menu-selected
+                    li
                         div#something
                             i.fa.fa-th.fa-lg.fa-fw
                     li
-                        div#upload-popup
+                        div#upload_popup 
                             i.fa.fa-plus.fa-lg.fa-fw
                     li
-                        div#settings
+                        div#settings 
                             i.fa.fa-cogs.fa-lg.fa-fw
 
                     li.pure-menu-separator
@@ -39,6 +41,8 @@ html(lang="en")
                         input#input-username(type="text", placeholder='Username')
                     div#input-playername-container.splash_head
                         input#input-playername(type='text', placeholder='Player')
+            
+
             div#upload_form_container test
                 span#close_upload_form_container X
                 form#uploadform(method='POST', action='/soundupload', enctype='multipart/form-data')            

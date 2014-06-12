@@ -25,6 +25,14 @@ app.set('view options', {layout: false});
 app.use(express.json());
 app.use(express.urlencoded());
 
+function validateName(name){
+    console.log('validating name ['+name+']');
+    if(typeof(name) === typeof('jemoeder')){
+        return name.match(/^[a-z][a-z-_]+$/i);
+    }else{
+        return false;
+    }
+}
 
 // Serve config.js. Needs to go above the other js serve route, or it won't work
 app.get('/config.js', function(req,res){
@@ -55,10 +63,48 @@ app.get('/', function(req, res){
     res.render('index');
 });
 
-// the page for a soundboard user
-app.get('/userboard', function(req,res){
-    res.render('userboard');
+// the route for a soundboard user
+app.get('/userboard/?', function(req,res){
+    res.render('userboard', {jade_data : {'user' : null, 'player' : null} });
 });
+
+/*
+app.get('/userboard/:user/?', function(req,res){
+    var valid_user = validateName(req.params.user),
+        jade_data  = { 'user'   : null,
+                       'player' : null };
+
+    if(valid_user){
+        jade_data.user = req.params.user;
+        res.render('userboard', {   user:req.params.user,
+                                    player:null});
+    }else{
+        res.redirect('/userboard');
+    }
+});
+*/
+
+app.get('/userboard/:user/:player?/?', function(req,res){
+    var user            = req.params.user,
+        player          = req.params.player,
+        valid_user      = validateName(user),
+        valid_player    = validateName(player),
+        jade_data       = {   'user'  : null,
+                            'player'  : null},
+        url             = '/userboard';
+                           
+    if(!valid_user){ //if no valid user, try again
+        res.redirect(url); //, {jade_data : jade_data});
+    }else if(!valid_player){//if only valid user, redirect to user route
+        jade_data.user  = user;
+        res.render('userboard', { jade_data : jade_data }); 
+    }else{
+        jade_data.user      = user;
+        jade_data.player    = player;
+        res.render('userboard',{ jade_data : jade_data  });
+    }
+});
+
 
 
 app.get('/player', function(req, res){
@@ -70,6 +116,20 @@ app.use( require('./lib/soundupload.js'));
 
 // setup soundboard stuff
 soundboard  = new soundboard(io);
+
+app.get('/test/:opt1?/filler/:opt2?', function(req, res){
+    var jade_data ={ 'opt1' : null, 'opt2': null};
+    jade_data.opt1 = req.params.opt1;
+    jade_data.opt2 = req.params.opt2;
+
+    res.render('test', {jade_data : jade_data});
+});
+
+// app.get('/test/:sitename/?', function(req, res){
+//     res.render('test', {sitename:req.params.sitename, 
+//                         page_title:req.params.sitename,
+//                         passed_var : 'hoerr'});
+// });
 
 // Start the server
 console.log('config: [%s]', config.port);
