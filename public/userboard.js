@@ -117,7 +117,7 @@ UserboardInterface.prototype.updateState = function(){
     }
     if (this.user){
         console.log('user ['+this.user+']');
-        $('hidden_username').attr('value', this.user);
+        $('#hidden_username').attr('value', this.user);
         this.socket.emit('bootstrap', {user: this.user});
         $('#input-username-container').css( 'display',  'none');  // hide user input box 
     }else{
